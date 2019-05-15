@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <nav class="menu">
+        <ul class="menu__ul">
+            <li class="menu__item"><h:link class="item__link" value="Fotos"/></li>
+            <li class="menu__item"><h:link class="item__link" value="Convidados"/></li>
+            <li class="menu__item"><h:link class="item__link" value="Presentes" outcome="/presentes/visualizar"/></li>
+            <li class="menu__item"><h:link class="item__link" value="Usuários" outcome="/usuarios/cadastrar"/></li>
+            <li class="menu__item"><h:link class="item__link" value="Categorias" outcome="/categorias/cadastrar"/></li>
+        </ul>
+    </nav>
+</ui:composition>

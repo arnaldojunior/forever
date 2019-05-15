@@ -1,0 +1,211 @@
+/* 
+    Created on : 28/02/2019, 11:08:44
+    Author     : Arnaldo Junior
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    height: 100vh;
+    margin: 0 auto;
+    background-color: whitesmoke;
+}
+
+/* LOGIN FORM */
+.login_form * { display: block; }
+.login_form {
+    width: 400px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.login_form__fieldset {
+    padding: 10px;
+    border: none;
+    box-shadow: 0 0 20px 0 rgba(128,0,0,0.2);
+    background-color: #fff4f4;
+    border-radius: 10px;
+}
+.login_form__title {
+    color: darksalmon;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: serif;
+}
+.login_form__label {
+    font-family: Arial;
+    color: #ff9999;
+}
+.login_form__button {
+    border: none;
+    border-radius: 5px;
+    background-color: lightcoral;
+    color: #fff;
+    font: 500 16px Arial;
+    padding: 5px 10px;
+}
+.login_form__input {
+    margin: 5px 0 10px;
+    width: 100%;
+    border: 1px solid lightsteelblue;
+    border-radius: 5px;
+    line-height: 25px;
+}
+
+.adm_container { 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* HEADER */
+.header {
+    width: 100vw;
+    height: 10vh;
+    background-color: lightcoral;
+    display: flex;
+}
+.header__username {
+    color: #fff;
+    font-family: Arial;
+    font-size: 20px;
+    align-self: center;
+}
+
+/* MENU */
+.menu {
+    background-color: lightcoral;
+    width: 20%;
+    height: 90vh;
+}
+.menu__item {
+    background-color: darkgray;
+    margin-bottom: 3px;
+    padding: 10px;
+    border-bottom: 2px solid #808080;
+}
+.item__link {
+    text-decoration: none;
+    font: 500 20px Arial;
+    color: white;
+    display: block;
+}
+.item__link:hover {
+    animation: animeMenuItem 0.3s linear;
+    animation-fill-mode: forwards;
+}
+@keyframes animeMenuItem {
+    0% { margin-left: 0; color: white; }
+    100% { margin-left: 30px; color: #585858; }
+}
+
+/* CONTENT */
+.content {
+    background-color: whitesmoke;
+    width: 80%;
+    height: 90vh;
+    padding: 2em;
+}
+
+/* FORM */
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    color: darkslategray;
+}
+.form__title {
+    flex: 100%;
+    margin-bottom: 20px;
+    font: 500 30px sans-serif;
+    color: cornflowerblue;
+}
+.form__button__add {
+    width: 50px;
+    height: 50px;
+    align-self: flex-end;
+    margin: 0 10% 20px 0;
+    background-color: royalblue;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font: 600 30px Arial;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.3);
+}
+.form__search {
+    margin: 20px 0 0 10%;
+    padding: 5px;
+}
+.form__row {
+    width: 50%;
+    margin-bottom: 10px;
+    padding-left: 1em;
+    font: 500 20px Calibri;
+    display: flex;
+    justify-content: space-between;
+}
+.form__input {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0.5px 0.5px 1px 0.5px rgba(0,0,0,0.2);
+}
+.input--width-small { width: 30%; }
+.input--width-medium { width: 50%; }
+.input--width-large { width: 70%; }
+.form__button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background: linear-gradient(lightskyblue, cornflowerblue);
+    color: whitesmoke;
+    font: 500 20px Arial;
+    box-shadow: 1px 1px 1px 0.5px rgba(0,0,0,0.2);
+    margin-top: 20px;
+}
+.form__button:hover {
+    background: linear-gradient(lightskyblue, royalblue);
+    cursor: pointer;
+}
+.form__message {
+    list-style: none;
+    font: 500 20px Arial;
+    color: chocolate;
+    margin-top: 20px;
+}
+
+/* DATATABLE */
+.table {
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 0.5px 0.5px 3px 1px rgba(0,0,0,0.3);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font: 500 20px Calibri, sans-serif;
+    text-align: center;
+}
+.table__header {
+    background-color: cornflowerblue;
+    color: white;
+    padding: 5px;
+}
+.table--line-odd {
+    background-color: white; 
+}
+.table--line-even {
+    background-color: #DCDCDC;
+}
+
+.delete_icon {
+    width: 25px;
+    height: 25px;
+    background: url(../resources/img/trash_icon.png);
+    border: none;
+    cursor: pointer;
+}
