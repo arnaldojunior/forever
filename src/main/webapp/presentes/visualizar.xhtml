@@ -10,10 +10,29 @@
         <h:form class="form">
             <h2 class="form__title">Presentes Cadastrados</h2>
 
-            <h:commandLink class="form__button__add"
-                           action="cadastrar"
-                           value="+"/>
-            
+            <div class="form__command__bar">
+                <h:selectOneMenu class="command__bar__select input--width-small" 
+                                 valueChangeListener="#{presentesControle.buscarPorCategoriaObjeto}"
+                                 onchange="submit()"
+                                 converter="categoriaConverter">
+                    <f:selectItem itemLabel="" noSelectionOption="true"/>
+                    <f:selectItems value="#{presentesControle.categorias}"
+                                   var="cat"
+                                   itemLabel="#{cat.nome}"
+                                   itemValue="#{cat}"/>
+                </h:selectOneMenu>
+                <h:commandButton class="command__bar__button" 
+                                 value="Mais caros"
+                                 action="#{presentesControle.buscarPresentesMaisCaros()}"/>
+
+                <h:commandButton class="command__bar__button"
+                                 value="Mais que 1800"
+                                 action="#{presentesControle.presentesQueCustamMaisQue()}"/>
+
+                <h:commandLink class="form__button__add"
+                               action="cadastrar"
+                               value="+"/>
+            </div>
             <h:dataTable value="#{presentesControle.presentes}"
                          var="presente"
                          styleClass="table"

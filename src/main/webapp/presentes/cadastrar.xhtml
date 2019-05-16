@@ -30,6 +30,7 @@
                 <h:selectOneMenu id="categoria" 
                                  value="#{presentesControle.presente.categoria}"
                                  class="form__input input--width-medium"
+                                 converter="categoriaConverter"
                                  required="true"
                                  requiredMessage="Campo categoria: o valor é necessário.">
                     <f:selectItem itemLabel="" noSelectionOption="true"/>

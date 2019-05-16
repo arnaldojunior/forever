@@ -51,19 +51,19 @@ public class PresentesControle {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    
+
     public List<Presente> getPresentes() {
         return presentes;
     }
 
     public List<Categoria> getCategorias() {
-        return categoriaRepositorio.findAll();
+        return categoriaRepositorio.buscarTodos();
     }
 
     public void cadastrar() {
         String msg;
         try {
-            presenteRepositorio.create(presente);
+            presenteRepositorio.criar(presente);
             msg = "Presente " + presente.getDescricao() + " cadastrado com sucesso!";
             presente = new Presente();
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class PresentesControle {
     public void deletar(Long id) {
         String msg;
         try {
-            presenteRepositorio.delete(id);
+            presenteRepositorio.deletar(id);
             msg = "Presente deletado com sucesso!";
             this.presentes = buscarTodosPresentes();
         } catch (Exception e) {
@@ -86,7 +86,7 @@ public class PresentesControle {
 
     public List<Presente> buscarTodosPresentes() {
         try {
-            this.presentes = presenteRepositorio.findAll();
+            this.presentes = presenteRepositorio.buscarTodos();
         } catch (Exception e) {
             System.out.println("Erro ao buscar presentes!");
         }
@@ -98,18 +98,44 @@ public class PresentesControle {
         Categoria categoriaBuscada;
         try {
             if (categoria.isEmpty()) {
-                this.presentes = presenteRepositorio.findAll();
+                this.presentes = presenteRepositorio.buscarTodos();
             } else {
-                //this.presentes = presenteRepositorio.findByCategoria(categoria);
-                 categoriaBuscada = categoriaRepositorio.findByName(categoria);
-                 System.out.println("PRESENTES: "+ categoriaBuscada.getPresentes().size());
-                 presentes = categoriaBuscada.getPresentes();
-                 if (presentes.isEmpty()) {
-                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nenhum presente encontrado!"));
-                 }
+                categoriaBuscada = categoriaRepositorio.buscarPorNome(categoria);
+                this.presentes = categoriaBuscada.getPresentes();
+                if (presentes.isEmpty()) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nenhum presente encontrado!"));
+                }
             }
         } catch (Exception ex) {
-            System.out.println("Erro ao buscar presente por categoria: " + ex);
+            System.out.println("Erro ao buscar presentes por categoria: " + ex);
+        }
+    }
+
+    public void buscarPorCategoriaObjeto(ValueChangeEvent e) {
+        try {
+            Categoria cat = (Categoria) e.getNewValue();
+            this.presentes = presenteRepositorio.buscarPorCategoria(cat);
+        } catch (Exception ex) {
+            System.out.println("Erro ao buscar presentes por categoria: " + ex);
+        }
+    }
+
+    public void buscarPresentesMaisCaros() {
+        try {
+            this.presentes = presenteRepositorio.buscarPresentesMaisCaros();
+        } catch (Exception ex) {
+            System.out.println("Erro ao buscar presentes mais caros: " + ex);
+        }
+    }
+
+    public void presentesQueCustamMaisQue() {
+        try {
+            // Busca os presentes que custam mais que o valor especificado.
+            // Observo que este valor pode ser recebido por parâmetro.
+            this.presentes = presenteRepositorio.buscarPresentesMaisCarosQue(
+                    new Double(1800));
+        } catch (Exception ex) {
+            System.out.println("Erro ao buscar presentes: " + ex);
         }
     }
 }

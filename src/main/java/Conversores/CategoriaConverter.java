@@ -11,7 +11,11 @@ import modelo.Categoria;
  *
  * @author Arnaldo Junior
  */
-@FacesConverter(forClass = Categoria.class)
+/**
+ * Propriedade value permite que o converter seja referenciado
+ * diretamente em um UIComponent. 
+ */
+@FacesConverter(forClass = Categoria.class, value = "categoriaConverter")
 public class CategoriaConverter implements Converter {
 
     @Override
@@ -20,6 +24,7 @@ public class CategoriaConverter implements Converter {
             return null;
         }
         Long id = new Long(value);
+        // Busca o controlador no contexto Faces.
         CategoriaControle controle = (CategoriaControle) context.getApplication().
                 getELResolver().getValue(context.getELContext(), null, "categoriaControle");
         

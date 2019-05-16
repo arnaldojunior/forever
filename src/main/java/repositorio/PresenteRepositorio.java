@@ -33,39 +33,63 @@ public class PresenteRepositorio {
     private EntityManager em;
 
     @Resource
-    private UserTransaction transaction;
+    private UserTransaction transacao;
 
-    public void create(Presente presente) {
+    public void criar(Presente presente) {
         try {
-            transaction.begin();
+            transacao.begin();
             Categoria categoria = em.find(Categoria.class, presente.getCategoria().getId());
             categoria.addPresente(presente);
             em.persist(presente);
-            transaction.commit();
+            transacao.commit();
         } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
             System.out.println("Erro: " + e);
         }
     }
-    
-    public void delete(Long id) {
+
+    public void deletar(Long id) {
         try {
-            transaction.begin();
+            transacao.begin();
             Presente presente;
             presente = em.getReference(Presente.class, id);
             em.remove(presente);
-            transaction.commit();
+            transacao.commit();
 
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(PresenteRepositorio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public List<Presente> findAll() {
+
+    public List<Presente> buscarTodos() {
         return em.createQuery("SELECT p FROM Presente p").getResultList();
     }
-    
-    public List<Presente> findByCategoria(String categoria) {
+
+    public List<Presente> buscarPorCategoria(String categoria) {
         return em.createQuery("SELECT p FROM Presente p WHERE p.categoria.nome = ?1").
                 setParameter(1, categoria).getResultList();
+    }
+
+    public List<Presente> buscarPorCategoria(Categoria categoria) {
+        return em.createNamedQuery("Presente.presentesPorCategoria").
+                setParameter("categoria", categoria).getResultList();
+    }
+    
+    /**
+     * Retorna os quatro presentes mais caros.
+     * @return 
+     */
+    public List<Presente> buscarPresentesMaisCaros() {
+        return em.createNamedQuery("Presente.presentesMaisCaros").
+                setMaxResults(4).getResultList();
+    }
+
+    /**
+     * Busca os presentes que custam mais que o valor especificado.
+     * @param valor
+     * @return 
+     */
+    public List<Presente> buscarPresentesMaisCarosQue(Double valor) {
+        return em.createNamedQuery("Presente.valorMinimo").
+                setParameter("valor", valor).getResultList();
     }
 }

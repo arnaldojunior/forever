@@ -27,36 +27,36 @@ public class CategoriaRepositorio {
     private EntityManager em;
 
     @Resource
-    private UserTransaction transaction;
+    private UserTransaction transacao;
 
-    public void create(Categoria categoria) {
+    public void criar(Categoria categoria) {
         try {
-            transaction.begin();
+            transacao.begin();
             em.persist(categoria);
-            transaction.commit();
+            transacao.commit();
         } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
             System.out.println("Erro: " + e);
         }
     }
 
-    public void delete(Long id) {
+    public void deletar(Long id) {
         try {
-            transaction.begin();
+            transacao.begin();
             Categoria categoria;
             categoria = em.getReference(Categoria.class, id);
             em.remove(categoria);
-            transaction.commit();
+            transacao.commit();
 
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(CategoriaRepositorio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public List<Categoria> findAll() {
+    public List<Categoria> buscarTodos() {
         return em.createQuery("SELECT c FROM Categoria c").getResultList();
     }
     
-    public Categoria findById(Long id) {
+    public Categoria buscarPorId(Long id) {
         Categoria categoria = new Categoria();
         try {
             categoria = em.find(Categoria.class, id);
@@ -66,7 +66,7 @@ public class CategoriaRepositorio {
         return categoria;
     }
     
-    public Categoria findByName(String nome) {
+    public Categoria buscarPorNome(String nome) {
         Categoria categoria = new Categoria();
         try {
             categoria = (Categoria) em.createQuery("SELECT c FROM Categoria c WHERE c.nome = ?1").

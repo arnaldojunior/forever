@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -19,9 +22,22 @@ import javax.persistence.Table;
 @Dependent
 @Entity
 @Table(name = "presentes")
+@NamedQueries({
+    @NamedQuery(name = "Presente.buscarTodos", 
+            query = "SELECT p FROM Presente p"),
+    @NamedQuery(name = "Presente.presentesMaisCaros",
+            query = "SELECT p FROM Presente p ORDER BY p.valor DESC"),
+    @NamedQuery(name = "Presente.presentesPorCategoria",
+            query = "SELECT p FROM Presente p WHERE p.categoria = :categoria"),
+    @NamedQuery(name = "Presente.buscarPorNome", 
+            query = "SELECT p FROM Presente p WHERE p.descricao LIKE :nome"),
+    @NamedQuery(name = "Presente.valorMinimo",
+            query = "SELECT p FROM Presente p WHERE p.valor >= :valor")
+})
 public class Presente implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presente_gen")
+    @SequenceGenerator(name = "presente_gen", sequenceName = "presente_seq", initialValue = 100)
     private Long id;
     
     @Column(nullable = false, length = 255)

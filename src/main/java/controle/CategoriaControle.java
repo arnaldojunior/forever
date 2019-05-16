@@ -31,7 +31,7 @@ public class CategoriaControle {
     public void cadastrar() {
         String msg;
         try {
-            categoriaRepositorio.create(categoria);
+            categoriaRepositorio.criar(categoria);
             msg = "Categoria " + categoria.getNome() +" cadastrada com sucesso!";
             categoria = new Categoria();
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class CategoriaControle {
     public void deletar(Long id) {
         String msg;
         try {
-            categoriaRepositorio.delete(id);
+            categoriaRepositorio.deletar(id);
             msg = "Categoria deletada com sucesso!";
         } catch (Exception e) {
             msg = "Erro ao deletar categoria!";
@@ -54,7 +54,7 @@ public class CategoriaControle {
     public List<Categoria> getCategorias() {
         List<Categoria> categorias = new ArrayList<>();
         try {
-            categorias = categoriaRepositorio.findAll();
+            categorias = categoriaRepositorio.buscarTodos();
         } catch (Exception e) {
             System.out.println("Erro ao buscar categorias!");
         }
@@ -62,6 +62,6 @@ public class CategoriaControle {
     }
     
     public Categoria buscarCategoriaPorId(Long id) {
-        return categoriaRepositorio.findById(id);
+        return categoriaRepositorio.buscarPorId(id);
     }
 }
