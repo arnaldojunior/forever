@@ -25,8 +25,6 @@ public class PresentesControle {
     @Inject
     private Presente presente;
 
-    private String categoria;
-
     @Inject
     private PresenteRepositorio presenteRepositorio;
 
@@ -37,19 +35,12 @@ public class PresentesControle {
 
     @PostConstruct
     public void inicializar() {
+        System.out.println("POST CONSTRUCT");
         buscarTodosPresentes();
     }
 
     public Presente getPresente() {
         return presente;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public List<Presente> getPresentes() {
@@ -74,9 +65,11 @@ public class PresentesControle {
 
     public void deletar(Long id) {
         String msg;
+        Presente p;
         try {
-            presenteRepositorio.deletar(id);
-            msg = "Presente deletado com sucesso!";
+            p = presenteRepositorio.deletar(id);
+            System.out.println("DELETADO: "+ id);
+            msg = "Presente "+ p.getDescricao() +" deletado com sucesso!";
             this.presentes = buscarTodosPresentes();
         } catch (Exception e) {
             msg = "Erro ao deletar presente!";
@@ -91,24 +84,6 @@ public class PresentesControle {
             System.out.println("Erro ao buscar presentes!");
         }
         return presentes;
-    }
-
-    public void buscarPorCategoria(ValueChangeEvent e) {
-        this.categoria = e.getNewValue().toString();
-        Categoria categoriaBuscada;
-        try {
-            if (categoria.isEmpty()) {
-                this.presentes = presenteRepositorio.buscarTodos();
-            } else {
-                categoriaBuscada = categoriaRepositorio.buscarPorNome(categoria);
-                this.presentes = categoriaBuscada.getPresentes();
-                if (presentes.isEmpty()) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nenhum presente encontrado!"));
-                }
-            }
-        } catch (Exception ex) {
-            System.out.println("Erro ao buscar presentes por categoria: " + ex);
-        }
     }
 
     public void buscarPorCategoriaObjeto(ValueChangeEvent e) {

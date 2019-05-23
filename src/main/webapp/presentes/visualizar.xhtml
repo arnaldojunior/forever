@@ -7,7 +7,8 @@
 
     <ui:define name="title">Forever - Presentes</ui:define>
     <ui:define name="main">
-        <h:form class="form">
+        <h:form class="form"
+                prependId="false">
             <h2 class="form__title">Presentes Cadastrados</h2>
 
             <div class="form__command__bar">
@@ -23,7 +24,8 @@
                 </h:selectOneMenu>
                 <h:commandButton class="command__bar__button" 
                                  value="Mais caros"
-                                 action="#{presentesControle.buscarPresentesMaisCaros()}"/>
+                                 action="#{presentesControle.buscarPresentesMaisCaros()}">
+                </h:commandButton>
 
                 <h:commandButton class="command__bar__button"
                                  value="Mais que 1800"
@@ -33,7 +35,9 @@
                                action="cadastrar"
                                value="+"/>
             </div>
-            <h:dataTable value="#{presentesControle.presentes}"
+
+            <h:dataTable id="table" 
+                         value="#{presentesControle.presentes}"
                          var="presente"
                          styleClass="table"
                          headerClass="table__header"
@@ -53,18 +57,11 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header"></f:facet>
-                    <h:commandButton action="#{presentesControle.deletar(presente.id)}" 
-                                     class="delete_icon"/>
+                    <h:commandButton class="delete_icon"
+                                     action="#{presentesControle.deletar(presente.id)}"/>
                 </h:column>
             </h:dataTable>
             <h:messages class="form__message" style="margin-left: 10%;"/>
-        </h:form>
-        <h:form>
-            <h:inputText p:type="search"
-                         p:placeholder="Pesquisar pela categoria"
-                         class="form__search"
-                         value="#{presentesControle.categoria}"
-                         valueChangeListener="#{presentesControle.buscarPorCategoria}"/>
         </h:form>
     </ui:define>
 </ui:composition>

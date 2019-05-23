@@ -47,17 +47,19 @@ public class PresenteRepositorio {
         }
     }
 
-    public void deletar(Long id) {
+    public Presente deletar(Long id) {
         try {
             transacao.begin();
             Presente presente;
             presente = em.getReference(Presente.class, id);
             em.remove(presente);
             transacao.commit();
+            return presente;
 
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(PresenteRepositorio.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
     public List<Presente> buscarTodos() {

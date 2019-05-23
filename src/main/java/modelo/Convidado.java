@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -17,7 +18,8 @@ import javax.persistence.Id;
 @Entity
 public class Convidado implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "convidado_gen")
+    @SequenceGenerator(name = "convidado_gen", sequenceName = "convidado_seq", initialValue = 100)
     private Long id;
 
     @Column(nullable = false)
