@@ -92,4 +92,28 @@ public class PresenteRepositorio {
         return em.createNamedQuery("Presente.valorMinimo").
                 setParameter("valor", valor).getResultList();
     }
+    
+    /**
+     * Retorna o valor total dos presentes de uma categoria específica.
+     * @param categoria
+     * @return 
+     */
+    public List<Object[]> valorTotalDosPresentesDaCategoria(Categoria categoria) {
+        return em.createQuery(
+                "SELECT c.nome, SUM(p.valor) FROM Presente p "
+                        + "INNER JOIN p.categoria c WHERE p.categoria = ?1 "
+                        + "GROUP BY c.nome")
+                .setParameter(1, categoria).getResultList();
+    }
+    
+    /**
+     * Retorna o valor total de todos os presentes para cada categoria.
+     * @return 
+     */
+    public List<Object[]> valorTotalDosPresentesPorCategoria() {
+        return em.createQuery(
+                "SELECT c.nome, SUM(p.valor) FROM Presente p "
+                        + "INNER JOIN p.categoria c GROUP BY c.nome")
+                .getResultList();
+    }
 }

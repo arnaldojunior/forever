@@ -34,6 +34,10 @@ public class PresentesControle {
     private CategoriaRepositorio categoriaRepositorio;
 
     List<Presente> presentes = new ArrayList<>();
+    
+    List<Object[]> listaAlternativa = new ArrayList<>();
+    
+    private boolean mostrarTabelaAlternativa = false;
 
     @PostConstruct
     public void inicializar() {
@@ -60,6 +64,18 @@ public class PresentesControle {
         return categoriaRepositorio.buscarTodos();
     }
 
+    public List<Object[]> getListaAlternativa() {
+        return listaAlternativa;
+    }
+    
+    public boolean isMostrarTabelaAlternativa() {
+        return mostrarTabelaAlternativa;
+    }
+
+    public void setMostrarTabelaAlternativa(boolean mostrarTabelaAlternativa) {
+        this.mostrarTabelaAlternativa = mostrarTabelaAlternativa;
+    }
+    
     public void cadastrar() {
         String msg;
         try {
@@ -136,6 +152,22 @@ public class PresentesControle {
                     new Double(1800));
         } catch (Exception ex) {
             System.out.println("Erro ao buscar presentes: " + ex);
+        }
+    }
+    
+    public void valorTotalDosPresentesDaCategoria() {
+        Categoria c;
+        try {
+            c = categoriaRepositorio.buscarPorId(1L);
+            listaAlternativa = presenteRepositorio.valorTotalDosPresentesDaCategoria(c);
+            
+            for (Object[] obj: listaAlternativa) {
+                System.out.println("CAT: "+ obj[0] +", VALOR: "+ obj[1]);
+            }
+            mostrarTabelaAlternativa = true;
+            
+        } catch (Exception ex) {
+            System.out.println("Erro ao buscar presentes mais caros: " + ex);
         }
     }
 }

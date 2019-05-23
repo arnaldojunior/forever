@@ -28,6 +28,10 @@
                 <h:commandButton class="command__bar__button"
                                  value="Mais que 1800"
                                  action="#{presentesControle.presentesQueCustamMaisQue()}"/>
+                
+                <h:commandButton class="command__bar__button"
+                                 value="Valor Da Categoria"
+                                 action="#{presentesControle.valorTotalDosPresentesDaCategoria()}"/>
 
                 <h:commandLink class="form__button__add"
                                action="cadastrar"
@@ -37,7 +41,8 @@
                          var="presente"
                          styleClass="table"
                          headerClass="table__header"
-                         rowClasses="table--line-odd, table--line-even">
+                         rowClasses="table--line-odd, table--line-even"
+                         rendered="#{!presentesControle.mostrarTabelaAlternativa}">
 
                 <h:column>
                     <f:facet name="header">Descrição</f:facet>
@@ -55,6 +60,22 @@
                     <f:facet name="header"></f:facet>
                     <h:commandButton action="#{presentesControle.deletar(presente.id)}" 
                                      class="delete_icon"/>
+                </h:column>
+            </h:dataTable>
+            <h:dataTable value="#{presentesControle.listaAlternativa}"
+                         var="obj"
+                         styleClass="table"
+                         headerClass="table__header"
+                         rowClasses="table--line-odd, table--line-even"
+                         rendered="#{presentesControle.mostrarTabelaAlternativa}">
+
+                <h:column>
+                    <f:facet name="header">Categoria</f:facet>
+                        #{obj[0]}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Valor</f:facet>
+                        #{obj[1]}
                 </h:column>
             </h:dataTable>
             <h:messages class="form__message" style="margin-left: 10%;"/>
