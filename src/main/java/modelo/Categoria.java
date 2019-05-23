@@ -8,8 +8,10 @@ import javax.enterprise.context.Dependent;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -19,7 +21,8 @@ import javax.persistence.OneToMany;
 @Dependent
 public class Categoria implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_gen")
+    @SequenceGenerator(name = "categoria_gen", sequenceName = "categoria_seq", initialValue = 100)
     private Long id;
     
     @Column(nullable = false)
