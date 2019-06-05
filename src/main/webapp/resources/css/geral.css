@@ -24,17 +24,17 @@
     transform: translate(-50%, -50%);
 }
 .login_form__fieldset {
-    padding: 10px;
+    padding: 15px;
     border: none;
-    box-shadow: 0 0 20px 0 rgba(128,0,0,0.2);
-    background-color: #fff4f4;
+    box-shadow: 0 0 20px 0 rgba(128,0,0,0.4);
+    background-color: #ffe5e5;
     border-radius: 10px;
 }
 .login_form__title {
     color: darksalmon;
     margin-bottom: 10px;
     text-align: center;
-    font-family: serif;
+    font-family: Calibri;
 }
 .login_form__label {
     font-family: Arial;
@@ -43,7 +43,7 @@
 .login_form__button {
     border: none;
     border-radius: 5px;
-    background-color: lightcoral;
+    background: linear-gradient(lightcoral, indianred);
     color: #fff;
     font: 500 16px Arial;
     padding: 5px 10px;
@@ -67,6 +67,7 @@
     height: 10vh;
     background-color: lightcoral;
     display: flex;
+    border-bottom: 1px solid lightsteelblue;
 }
 .header__username {
     color: #fff;
@@ -77,20 +78,21 @@
 
 /* MENU */
 .menu {
-    background-color: lightcoral;
+    background: linear-gradient(to bottom, whitesmoke, lightcoral);
+    border-right: 1px solid lightsteelblue;
     width: 20%;
     height: 90vh;
 }
 .menu__item {
-    background-color: darkgray;
+    background: linear-gradient(to right, #909090, #d0d0d0);
     margin-bottom: 3px;
-    padding: 10px;
+    padding: 10px 20px;
     border-bottom: 2px solid #808080;
 }
 .item__link {
     text-decoration: none;
     font: 500 20px Arial;
-    color: white;
+    color: whitesmoke;
     display: block;
 }
 .item__link:hover {
