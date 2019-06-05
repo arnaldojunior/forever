@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,6 +11,7 @@ import modelo.Categoria;
 import modelo.Presente;
 import repositorio.CategoriaRepositorio;
 import repositorio.PresenteRepositorio;
+import util.Message;
 
 /**
  *
@@ -68,29 +67,25 @@ public class PresentesControle {
     }
     
     public void cadastrar() {
-        String msg;
         try {
             presenteRepositorio.criar(presente);
-            msg = "Presente " + presente.getDescricao() + " cadastrado com sucesso!";
+            Message.info("Presente " + presente.getDescricao() + " cadastrado com sucesso!");
             presente = new Presente();
         } catch (Exception e) {
-            msg = "Erro ao cadastrar presente!";
+            Message.error("Erro ao cadastrar presente!");
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
     }
 
     public void deletar(Long id) {
-        String msg;
         Presente p;
         try {
             p = presenteRepositorio.deletar(id);
             System.out.println("DELETADO: "+ id);
-            msg = "Presente "+ p.getDescricao() +" deletado com sucesso!";
+            Message.info("Presente "+ p.getDescricao() +" deletado com sucesso!");
             this.presentes = buscarTodosPresentes();
         } catch (Exception e) {
-            msg = "Erro ao deletar presente!";
+            Message.error("Erro ao deletar presente!");
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
     }
 
     public List<Presente> buscarTodosPresentes() {
